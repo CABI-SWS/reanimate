@@ -79,8 +79,6 @@ def gd(t,delay):
 def impulse(t,delay,length=1.):
     
     import numpy as np
-
-
     conc = np.zeros(t.shape[0])
     conc[t>=delay] = 1.
     conc[t>(delay+length)] = 0.
@@ -88,10 +86,6 @@ def impulse(t,delay,length=1.):
     
 class ParameterSet(object):
   
-
-
-
-
     def __init__(self, dt=1.,nt=1200,pixSize=[150.,150.,150.],D=7e-11*1e12,P=1e-2,feNSample=3,nr=10,dr=100.):
 
         self.name = ''
@@ -335,7 +329,6 @@ class InjectAgent(object):
             else:
                 interDir = os.path.join(path,'interstitium_calcs')
 
-            #interDir = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\LS147T\1\impulseinterstitium_calcs'
             nadded = 0
             init = False
             #import pdb
@@ -382,19 +375,7 @@ class InjectAgent(object):
                 if not os.path.isdir(odir):
                     os.mkdir(odir)
                 timePoints = self.output_times
-                #boundingBox = data['embedDims'].flatten()
-                #timePoints = np.linspace(np.min(self.output_times),np.max(self.output_times),num=30)
-                #timePoints = np.linspace(0.,60.,num=150)
-                #tp_early = np.linspace(0,60,num=100)
-                #tp_late = np.linspace(60,np.max(self.output_times),num=20)
-                #tp_early = np.arange(0,60,1) #np.linspace(0,60*10,num=20)
-                #tp_late = np.linspace(60,np.max(self.output_times),num=20)
-                #tp_late = np.arange(60,np.max(self.output_times),20)
-                #timePoints = np.append(tp_early,tp_late)
                 print('Interstitial timepoints: {}'.format(timePoints))
-                
-                #import pdb
-                #pdb.set_trace()
 
                 for ti,tp in enumerate(timePoints): 
                     cur = grid[ti,:,:,:]
@@ -551,36 +532,14 @@ class InjectAgent(object):
                 curEdge.concentration[gt0] = np.log(cur[gt0])
 
         # Calculate AUC
-        #print('Calculating AUC...')
-        #self.auc(edges)
         print('Adding concentration-time data to graph')
-#        if False: #old version - adds multiple scalar fileds to a single graph file
-#            # Add concentration(t=1s) as a scalar field
-#            timePoints = self.output_times
-#            for tp in timePoints:
-#                self.add_concentration(edges,self.time,conc_time=tp)
-#            print('Calculating distance...')
-#            self.add_distance(edges)
-#        else:
+
         if True: #new version - creates multiple graph files (one per timepoint). Import into Amira with load timeseries
             # Add concentration(t=1s) as a scalar field
             odir = os.path.join(output_directory,'vascular_recon')
             if not os.path.isdir(odir):
                 os.mkdir(odir)
             timePoints = self.output_times
-            #timePoints = np.linspace(np.min(self.output_times),np.max(self.output_times),num=30)
-            #timePoints = np.linspace(np.min(self.output_times),np.max(self.output_times),num=500)
-            #tp_early = np.arange(0,1200,60) #np.linspace(0,60*10,num=20)
-            #tp_late = np.linspace(1200,np.max(self.output_times),num=20)
-            #timePoints = np.append(tp_early,tp_late)
-            #timePoints = np.linspace(0.,60.,num=150)
-            #tp_early = np.linspace(0,60,num=100)
-            #tp_late = np.linspace(60,np.max(self.output_times),num=20)
-            #timePoints = np.append(tp_early,tp_late)
-            #tp_early = np.arange(0,60,1) #np.linspace(0,60*10,num=20)
-            #tp_late = np.linspace(60,np.max(self.output_times),num=20)
-            #tp_late = np.arange(60,np.max(self.output_times),20)
-            #timePoints = np.append(tp_early,tp_late)
             
             print('Vascular timepoints: {}'.format(timePoints))
             for ti,tp in enumerate(timePoints):
@@ -1160,11 +1119,6 @@ def _worker_function(args):
             if not os.path.exists(intDir):
                 os.makedirs(intDir)
             intFile = os.path.join(intDir ,'interstitium_inlet{}.npz'.format(inletNodeIndex))            
-
-           
-
-
-
             intr = interstitium.Interstitium(paramSet=paramSet)
             nodeCoords = np.asarray([n.coords for n in nodeList])
             intr.set_grid_dimensions(nodeCoords,time,grid_dims=grid_dims,embed_dims=embed_dims)
@@ -1375,23 +1329,8 @@ def _worker_function(args):
         remove_runfile_entry(runFile,inletNodeIndex)
 
 def main():         
-    #dir_ = 'C:\\Users\\simon\\Dropbox\\160113_paul_simulation_results\\LS147T - Post-VDA\\1\\'
-    dir_ = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\LS147T\1'
-    #dir_ = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\SW1222\1'
-    #dir_ = r'D:'
-    #dir_ = r'D:\160113_paul_simulation_results\LS147T\1'
-    #dir_ = r'D:\160113_paul_simulation_results\LS147T\1'
-    #dir_ = r'D:\160113_paul_simulation_results\LS147T\1'
-    #dir_ = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\LS147T\1\ca1'
-    #dir_ = r'D:\SW1222\1'
-    #dir_ = r'/mnt/sdc/data/simulations/SW1222/1/'
+    dir_ = 'ADD_DIRECTORY'
     f = os.path.join(dir_,'spatialGraph_RIN.am')
-    #dir_ = 'C:\\Users\\simon\\Dropbox\\Mesentery\\'
-
-    #f = os.path.join(dir_,'Flow2AmiraPressure.am')
-    #f = os.path.join(dir_,'spatialGraph_RIN.am')
-
-    #odir = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\SW1222\1'
     odir = dir_
     
     graph = spatialgraph.SpatialGraph()
@@ -1421,15 +1360,10 @@ def main():
         else:
             recon_vascular = False
             recon_interstitium = True
-            
-            #import pdb
-            #pdb.set_trace()
             print('Reconstructing... Vesels: {} Interstitium {}'.format(recon_vascular,recon_interstitium))
             ia.reconstruct_results(graph,path=dir_,output_directory=odir,name=name,recon_interstitium=recon_interstitium,recon_vascular=recon_vascular,log=logRecon)
     else:
         print('Simulating...')
-        #paramset = ParameterSet(dt=16.,nt=1200,pixSize=[150.,150.,150.],ktrans=0.00001,D=7e-11*1e12,feNSample=3)
-        #paramset = ParameterSet(dt=16.,nt=1200,pixSize=[150.,150.,150.],P=1e-6,D=2.08e-10,feNSample=3)
         paramset = ParameterSet(dt=10.,nt=600,nr=10,dr=100.,pixSize=[150.,150.,150.],P=1e-2,D=2.08e2,feNSample=3)
         print('Testing parameters')
         if not paramset.test_parameters():
@@ -1455,7 +1389,4 @@ def main():
             ia.inject(graph, output_directory=odir, resume=resume, parallel=parallel, name=name, concFunc=concFunc, largest_inflow=largest_inflow, leaky_vessels=leaky_vessels)
  
 if __name__ == "__main__":
-    #import cProfile
-    #cProfile.run('main()')
     main()
-    #pass
