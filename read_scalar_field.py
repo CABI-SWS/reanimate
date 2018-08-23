@@ -8,15 +8,7 @@ Created on Mon Jun 19 14:18:40 2017
 import os
 import numpy as np
 
-#path = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\LS147T\1\Pressure mmHg'
-#path = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\LS147T - Post-VDA\1\Pressure mmHg'
-#path = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\LS147T\1\Perfusion ml_min_100g'
-#path = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\LS147T - Post-VDA\1\Perfusion ml_min_100g'
-
-#path = r'C:\Users\simon\Dropbox\160113_paul_simulation_results\SW1222\1\Perfusion'
-#path = r'C:\Users\simon\Dropbox\Perfusion'
-path = r'C:\Users\simon\Dropbox\SW1222\Pre-VDA\Pressure - mmHg'
-path = r'C:\Users\simon\Dropbox\SW1222\Pre-VDA\Perfusion - ml_min_100g'
+path = 'ADD_PATH'
 
 files = [os.path.join(path,f) for f in os.listdir(path) if f.endswith('.txt')]
 files.sort(key=lambda f: int(list(filter(str.isdigit, f))))
