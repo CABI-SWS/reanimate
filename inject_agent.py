@@ -9,8 +9,9 @@ Uses flow solutions from Paul Sweeney!
 
 """
 
-from pymira import spatialgraph, interstitium
-import pymira.front as frontPKG
+from pymira import spatialgraph
+from reanimate import interstitium
+import reanimate.front as frontPKG
 import numpy as np
 import os
 import pickle
@@ -625,7 +626,7 @@ class InjectAgent(object):
         logging.basicConfig(filename=logFile,level=logging.DEBUG,format='%(asctime)s %(levelname)s: %(message)s')
         
         nodeFile = os.path.join(output_directory,'nodeList.dill')
-        if False:
+        if True:
         #if not os.path.isfile(nodeFile):
             print('Generating node list...')
             nodeList = graph.node_list()
@@ -847,7 +848,7 @@ def _crawl_worker_function(args):
     
     try:
     
-        import pymira.front as frontPKG
+        import reanimate.front as frontPKG
         import numpy as np
         import dill as pickle
         import sys, traceback
@@ -1055,12 +1056,12 @@ def _worker_function(args):
     
     try:
     
-        import pymira.front as frontPKG
+        import reanimate.front as frontPKG
         import numpy as np
         import dill as pickle
         import sys, traceback
     
-        from pymira import interstitium
+        from reanimate import interstitium
     
         def scale_and_shift(conc,time,Q=1.,delay=0.):
             dt = time[1]-time[0]
